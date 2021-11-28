@@ -31,9 +31,18 @@ class BlogFactory extends Factory
             $post = $post . $para . "\n";
         }
 
-        foreach ($this->faker->words() as $word) {
-            $words = $words . $word . '; ';
-        }
+        $temp = null;
+        $counter = 0;
+        do {
+            $temp = $this->faker->words();
+
+            foreach ($temp as $word) {
+                if (str_contains($post, $word)) {
+                    $words = $words . $word . '; ';
+                    ++$counter;
+                }
+            }
+        } while ($counter < 3);
 
         $name = $this->faker->userName();
 

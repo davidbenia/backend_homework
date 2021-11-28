@@ -6,6 +6,7 @@
        <h1>{{$content[0]['title']}}</h1>
        <h4>by {{$content[0]['author']}}</h4>
        <p>{{$content[0]['post']}}</p>
+       <p>key words: {{$content[0]['key_words']}}</p>
        <a href="/">
            <button>Home</button>
        </a>

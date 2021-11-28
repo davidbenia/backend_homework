@@ -9,7 +9,7 @@ class BlogController extends Controller
 {
     public function index()
     {
-        $paginator = Blog::paginate(5);
+        $paginator = Blog::where("is_published", '=', true)->paginate(5);
 
         $content = [
             "data" => $paginator->items(),
