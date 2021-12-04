@@ -37,7 +37,8 @@ class PostController extends Controller
     {
         $request->validate([
             'title' => 'required',
-            'post' => 'required'
+            'post' => 'required',
+            'key_words' => 'required'
         ]);
 
         $slug = [

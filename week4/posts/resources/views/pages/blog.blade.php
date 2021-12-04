@@ -17,7 +17,13 @@
                 <div class="card horizontal">
                     <div class="card-stacked">
                         <div class="card-content">
-                            <p>{{ $post->title }}</p>
+                            <p>
+                                {{ $post->title }}
+                            </p>
+                            <p style="margin-top: 10px">upvotes: {{ $post->vote_up }}
+                                <br>downvotes:
+                                {{ $post->vote_down }}
+                            </p>
                         </div>
                         <div class="card-action">
                             <a href="{{ route('posts.show', $post->slug) }}">View Post</a>

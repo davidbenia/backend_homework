@@ -2,13 +2,16 @@
 
 @section('content')
     <div class='container'>
-        <h3>{{ $title }}</h3>
+        <div style="display: flex; flex-direction: column" class='header'>
+            <p>upvotes: {{ $vote_up }}<br>downvotes: {{ $vote_down }}</p>
+        </div>
 
-        <div class='post'>
+        <div style="padding: 10px; background-color: #e5e5e5" class='post'>
+            <h3>{{ $title }}</h3>
             {{ $post }}
         </div>
-        <div class='keyWords'>
-            {{ $key_words }}
+        <div style=" margin-top: 50px" class='keyWords'>
+            {{ 'key words: ' . $key_words }}
         </div>
     </div>
 @endsection

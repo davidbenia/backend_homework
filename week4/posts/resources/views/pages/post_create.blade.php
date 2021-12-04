@@ -22,6 +22,12 @@
                 </div>
             </div>
             <div class='row'>
+                <div class='form-group'>
+                    <strong>Key Words:</strong>
+                    <textarea name='key_words' class="form-control" placeholder="Enter key words..."></textarea>
+                </div>
+            </div>
+            <div class='row'>
                 <button type='submit' class="waves-effect waves-light btn">Submit Post</button>
             </div>
         </form>

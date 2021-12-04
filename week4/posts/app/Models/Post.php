@@ -11,7 +11,7 @@ class Post extends Model
         'title',
         'slug',
         'post',
-        'key_word',
+        'key_words',
         'vote_up',
         'vote_down'
     ];
