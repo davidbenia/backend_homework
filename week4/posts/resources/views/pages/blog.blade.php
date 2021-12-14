@@ -1,5 +1,9 @@
 @extends('../layouts.blogLayout')
 
+@section('header')
+    <h3>{{ $user->name }} Posts</h3>
+@endsection
+
 @section('content')
     @if ($message = session()->get('success'))
         <script>
@@ -10,7 +14,11 @@
         </script>
     @endif
 
-    <a class="waves-effect waves-light btn" href="{{ route('posts.create') }}">Create New Post</a>
+    <a class="waves-effect waves-light btn"
+        href="{{ route('posts.create', ['name' => $user->name, 'userID' => $user->id]) }}">Create New
+        Post
+    </a>
+    <span style='margin-left: -150px'>@include('../components/back')</span>
     <div class='container'>
         @foreach ($posts as $post)
             <div class="col s12 m7">
@@ -28,7 +36,9 @@
                         <div class="card-action">
                             <a href="{{ route('posts.show', $post->slug) }}">View Post</a>
                             <a href="{{ route('posts.edit', $post->slug) }}">Edit Post</a>
-                            <form action="{{ route('posts.destroy', $post->slug) }}" method='POST'>
+                            <form
+                                action="{{ route('posts.destroy', ['slug' => $post->slug, 'userID' => $post->user_id]) }}"
+                                method='POST'>
                                 @csrf
                                 @method("DELETE")
                                 <button class="btn red" onclick="return confirm('Delete post?')"
@@ -39,8 +49,5 @@
                 </div>
             </div>
         @endforeach
-    </div>
-    <div class='pages'>
-        {{ $posts->links() }}
     </div>
 @endsection

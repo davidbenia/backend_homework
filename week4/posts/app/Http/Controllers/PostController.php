@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -12,9 +13,12 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('pages.blog', ['posts' => Post::paginate(5)]);
+        $user = User::find($request->userID);
+        $posts = $user->posts;
+
+        return view('pages.blog', ['user' => $user, 'posts' => $posts]);
     }
 
     /**
@@ -22,9 +26,9 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('pages.post_create');
+        return view('pages.post_create', ['name' => $request->name, 'userID' => $request->userID]);
     }
 
     /**
@@ -36,6 +40,7 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'user_id' => 'required',
             'title' => 'required',
             'post' => 'required',
             'key_words' => 'nullable'
@@ -49,7 +54,7 @@ class PostController extends Controller
 
         Post::create($request->all() + $slug);
 
-        return redirect()->route('posts.index')->with('success', 'Post created');
+        return redirect()->route('users.index')->with('success', 'Post created');
     }
 
     /**
@@ -94,7 +99,7 @@ class PostController extends Controller
 
         Post::where('slug', '=', $slug)->update($data);
 
-        return redirect()->route('posts.index')->with('success', 'Post edited');
+        return redirect()->route('users.index')->with('success', 'Post edited');
     }
 
     /**
@@ -103,11 +108,11 @@ class PostController extends Controller
      * @param  string  $slug
      * @return \Illuminate\Http\Response
      */
-    public function destroy($slug)
+    public function destroy(Request $request)
     {
-        $post = Post::where('slug', '=', $slug)->firstOrFail();
+        $post = Post::where('slug', '=', $request->slug)->firstOrFail();
         $post->delete();
 
-        return redirect()->route('posts.index')->with('success', 'Post deleted');
+        return redirect()->route('posts.index', ['userID' => $request->userID])->with('success', 'Post deleted');
     }
 }
